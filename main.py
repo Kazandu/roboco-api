@@ -6,7 +6,7 @@ app = Flask(__name__)
 def index():
   return 'Server Works!'
   
-@app.route('/health')
+@app.get('/health')
 def say_hello():
   return 'Hello from Server'
 

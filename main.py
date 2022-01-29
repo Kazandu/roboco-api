@@ -20,13 +20,14 @@ def checkerlist():
 @app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
-    checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
-    dupecheckstring = checkBatchAdd.read()
-    print(dupecheckstring)
+    with open("/opt/archiving/ytdlppython/check_batch.txt") as checkbatchfile:
+        dupecheckstring= checkbatchfile.read()
+        checkbatchfile.close()
     if data in dupecheckstring:
         print("Ich bin im dupe check und sollte eigentlich warnen wegen --"+data+"--\n")
         return "WARN URL already in check_batch. File not edited."
     else:
+        checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
         checkBatchAdd.write(data+"\n")
         checkBatchAdd.close()
         print("bin trotzdem am adden lol\n")

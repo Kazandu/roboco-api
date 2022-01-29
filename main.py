@@ -20,7 +20,7 @@ def checkerlist():
 @app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
-    return 201, "Abgegriffene URL ="+data
+    return "Abgegriffene URL ="+data
 
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=5069)

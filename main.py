@@ -29,7 +29,7 @@ def checklistadd():
         checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
         checkBatchAdd.write(data+"\n")
         checkBatchAdd.close()
-        return "Abgegriffene URL = "+data
+        return "Added "+data+" to checker_batch"
 
 @app.get('/dl/list')
 def dllist():
@@ -50,7 +50,7 @@ def dllistadd():
         dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")
         dlBatchAdd.write(data+"\n")
         dlBatchAdd.close()
-        return "Added URL = "+data
+        return "Added "+data+" to dl_batch"
 
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=5069)

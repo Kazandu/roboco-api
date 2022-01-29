@@ -1,5 +1,6 @@
 from flask import Flask
 from waitress import serve
+from flask.ext.jsonpify import jsonify
 app = Flask(__name__)
 
 @app.route('/')
@@ -13,7 +14,8 @@ def say_hello():
 @app.route('/checker/list')
 def checkerlist():
     with open("/opt/archiving/ytdlppython/check_batch.txt") as check_batch_file:
-        return check_batch_file.readlines()
+        check_batch_result= check_batch_file.readlines()
+        return jsonify(check_batch_result)
 
 
 if __name__ == "__main__":

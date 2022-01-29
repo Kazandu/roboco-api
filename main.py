@@ -24,13 +24,11 @@ def checklistadd():
         dupecheckstring= checkbatchfile.read()
         checkbatchfile.close()
     if data in dupecheckstring:
-        print("Ich bin im dupe check und sollte eigentlich warnen wegen --"+data+"--\n")
         return "WARN URL already in check_batch. File not edited."
     else:
         checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
         checkBatchAdd.write(data+"\n")
         checkBatchAdd.close()
-        print("bin trotzdem am adden lol\n")
         return "Abgegriffene URL = "+data
 
 @app.get('/dl/list')
@@ -43,10 +41,13 @@ def dllist():
 @app.get('/dl/add')
 def dllistadd():
     data = request.args.get("url")
-    dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")    
-    if data in dlBatchAdd.read():
+    with open("/opt/archiving/ytdlppython/check_batch.txt") as dlbatchfile:
+        dupecheckstring= dlbatchfile.read()
+        dlbatchfile.close()
+    if data in dupecheckstring:
         return "WARN URL already in check_batch. File not edited."
     else:
+        dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")
         dlBatchAdd.write(data+"\n")
         dlBatchAdd.close()
         return "Added URL = "+data

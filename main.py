@@ -20,7 +20,10 @@ def checkerlist():
 @app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
+
     checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
+    if data in checkBatchAdd.read():
+        return "WARN URL already in check_batch. File not edited."
     checkBatchAdd.write(data+"\n")
     checkBatchAdd.close()
     return "Abgegriffene URL = "+data
@@ -35,10 +38,12 @@ def dllist():
 @app.get('/dl/add')
 def dllistadd():
     data = request.args.get("url")
-    dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")
+    dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")    
+    if data in dlBatchAdd.read():
+        return "WARN URL already in check_batch. File not edited."
     dlBatchAdd.write(data+"\n")
     dlBatchAdd.close()
-    return "Abgegriffene URL = "+data
+    return "Added URL = "+data
 
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=5069)

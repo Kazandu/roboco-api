@@ -17,7 +17,7 @@ def checkerlist():
         check_batch_result= [line.strip() for line in check_batch]
         return jsonify(check_batch_result)
 
-@app.post('/checker/add')
+@app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
     return 201, "Abgegriffene URL ="+data

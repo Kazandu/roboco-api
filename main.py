@@ -13,8 +13,7 @@ def say_hello():
 @app.route('/checker/list')
 def checkerlist():
     with open("/opt/archiving/ytdlppython/check_batch.txt") as check_batch_file:
-        for line in check_batch_file:
-            return line
+        return check_batch_file.readlines()
 
 
 if __name__ == "__main__":

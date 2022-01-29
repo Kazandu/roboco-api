@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from waitress import serve
 app = Flask(__name__)
 
@@ -7,16 +7,20 @@ def index():
   return 'Server Works!'
   
 @app.get('/health')
-def say_hello():
-  return 'Hello from Server'
+def healthcheck():
+  return 'OK'
 
-@app.route('/checker/list')
+@app.get('/checker/list')
 def checkerlist():
     with open("/opt/archiving/ytdlppython/check_batch.txt") as check_batch_file:
         check_batch= check_batch_file.readlines()
         check_batch_result= [line.strip() for line in check_batch]
         return jsonify(check_batch_result)
 
+@app.post('/checker/add')
+def checklistadd():
+    data = request.args.get("url")
+    return 201, "Abgegriffene URL ="+data
 
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=5069)

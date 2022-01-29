@@ -21,7 +21,7 @@ def checkerlist():
 def checklistadd():
     data = request.args.get("url")
     checkBatchAdd = open ("/opt/archiving/ytdlppython/TEST_check_batch.txt", "a+")
-    checkBatchAdd.write(data)
+    checkBatchAdd.write(data+"\n")
     checkBatchAdd.close()
     return "Abgegriffene URL ="+data
 

@@ -13,7 +13,7 @@ def say_hello():
 @app.route('/checker/list')
 def checkerlist():
     with open("/opt/archiving/ytdlppython/check_batch.txt") as check_batch_file:
-        check_batch_result= check_batch_file.readlines()
+        check_batch_result= check_batch_file.read()
         return jsonify(check_batch_result)
 
 

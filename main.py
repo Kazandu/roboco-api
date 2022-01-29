@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return 'Server Works!'
+  return 'Roboco API Online!'
   
 @app.get('/health')
 def healthcheck():
@@ -20,10 +20,25 @@ def checkerlist():
 @app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
-    checkBatchAdd = open ("/opt/archiving/ytdlppython/TEST_check_batch.txt", "a+")
+    checkBatchAdd = open ("/opt/archiving/ytdlppython/check_batch.txt", "a+")
     checkBatchAdd.write(data+"\n")
     checkBatchAdd.close()
-    return "Abgegriffene URL ="+data
+    return "Abgegriffene URL = "+data
+
+@app.get('/dl/list')
+def dllist():
+    with open("/opt/archiving/ytdlppython/dl_batch.txt") as dl_batch_file:
+        dl_batch= dl_batch_file.readlines()
+        dl_batch_result= [line.strip() for line in dl_batch]
+        return jsonify(dl_batch_result)
+
+@app.get('/dl/add')
+def dllistadd():
+    data = request.args.get("url")
+    dlBatchAdd = open ("/opt/archiving/ytdlppython/dl_batch.txt", "a+")
+    dlBatchAdd.write(data+"\n")
+    dlBatchAdd.close()
+    return "Abgegriffene URL = "+data
 
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=5069)

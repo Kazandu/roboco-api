@@ -20,6 +20,9 @@ def checkerlist():
 @app.get('/checker/add')
 def checklistadd():
     data = request.args.get("url")
+    checkBatchAdd = open ("/opt/archiving/ytdlppython/TEST_check_batch.txt", "a+")
+    checkBatchAdd.write(data)
+    checkBatchAdd.close()
     return "Abgegriffene URL ="+data
 
 if __name__ == "__main__":
